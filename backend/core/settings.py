@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'blog',
     'blog_api',
     "rest_framework", "corsheaders",
+    "users"
 ]
 
 MIDDLEWARE = [
