@@ -120,14 +120,21 @@ STATIC_URL = '/static/'
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
         # 'rest_framework.permissions.IsAuthenticated'
-        # 'rest_framework.permissions.AllowAny'
-        'rest_framework.permissions.IsAuthenticatedOrReadOnly'
-    ]
+        'rest_framework.permissions.AllowAny'
+        # 'rest_framework.permissions.IsAuthenticatedOrReadOnly'
+    ],
+
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    )
 }
 CORS_ALLOWED_ORIGINS = [
     "http://127.0.0.1:3000",
     'http://localhost:3000'
 ]
+
+AUTH_USER_MODEL = "users.NewUser"
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
