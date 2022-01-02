@@ -8,17 +8,19 @@ from rest_framework_simplejwt.views import (
 )
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('', include('blog.urls', namespace='blog')),
-    path('api/', include('blog_api.urls', namespace='blog_api')),
-    path('api/user/', include('users.urls', namespace='users')),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
-    path('docs/', include_docs_urls(title='BlogAPI')),
+    path('admin/', admin.site.urls),
     path('schema', get_schema_view(
-        title="Blog api",
-        description='api for the the blogApi',
-        version='1.0.0'
-    ), name='openapi-schema')
+        title="BlogAPI",
+        description="API for the BlogAPI",
+        version="1.0.0"
+    ), name='openapi-schema'),
+
+    path('api/', include('blog_api.urls', namespace='blog_api')),
+
+    path('api/user/', include('users.urls', namespace='users')),
+    path('docs/', include_docs_urls(title='BlogAPI')),
+    path('', include('blog.urls', namespace='blog')),
 ]

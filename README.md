@@ -5,6 +5,7 @@
 - pip install pyyaml
 - pip install uritemplate
 - coreapi vs openapi
+- pip install django-filter
 
 ## LINK
 
