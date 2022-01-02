@@ -28,7 +28,7 @@ class PostList(viewsets.ModelViewSet):
         return get_object_or_404(Post, slug=item)
 
     def get_queryset(self):
-        print('11')
+
         return Post.objects.all()
 
     # permission_classes = [IsAuthenticated]
