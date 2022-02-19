@@ -149,5 +149,7 @@ dmypy.json
 
 # Cython debug symbols
 cython_debug/
-
+axios/facebookLogin.js
+facebookLogin.js
 # End of https://www.toptal.com/developers/gitignore/api/django
+frontend/blogapi/src/axios/facebookLogin.js

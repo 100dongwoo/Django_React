@@ -11,6 +11,7 @@ from rest_framework.parsers import MultiPartParser, FormParser
 
 
 class PostList(generics.ListAPIView):
+    permission_classes = [permissions.IsAuthenticated]
     serializer_class = PostSerializer
     queryset = Post.objects.all()
 

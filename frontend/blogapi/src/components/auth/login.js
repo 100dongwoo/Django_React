@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
-import axiosInstance from '../../axios';
+import axiosInstance from '../../axios/login';
 import { useHistory } from 'react-router-dom';
+import FbLogin from 'react-facebook-login';
+import FacebookLogin from '../../axios/facebookLogin';
 //MaterialUI
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
@@ -40,7 +42,9 @@ export default function SignIn() {
         email: '',
         password: '',
     });
-
+    const responseFacebook = async (response) => {
+        FacebookLogin(response.accessToken);
+    };
     const [formData, updateFormData] = useState(initialFormData);
 
     const handleChange = (e) => {
@@ -54,19 +58,29 @@ export default function SignIn() {
         e.preventDefault();
         console.log(formData);
 
+        //test 아이디 및 계정
         axiosInstance
-            .post(`token/`, {
-                email: formData.email,
+            .post(`auth/token`, {
+                grant_type: 'password',
+                username: formData.email,
                 password: formData.password,
+                client_id: 'KqsQpKDN234WWo9Yaf6WYcBXjehc10uVWT2QoI8J',
+                client_secret:
+                    'tPPQ5bsMVkHbuhy71lYtoCZlVjO5s16cNL1q5u3zkWAUC9c7QhWDmOHHHDPsD1x6gk7SPM6ln7cl1uYz25jtXs1Z4vwET4xl9liEHIpWjFWs4OqWzc8gLt25JOp4Jclc',
             })
+
             .then((res) => {
-                localStorage.setItem('access_token', res.data.access);
-                localStorage.setItem('refresh_token', res.data.refresh);
-                axiosInstance.defaults.headers['Authorization'] =
-                    'JWT ' + localStorage.getItem('access_token');
-                history.push('/');
+                console.log('로그인', res);
+                localStorage.setItem('access_token', res.data.access_token);
+                localStorage.setItem('refresh_token', res.data.refresh_token);
+                // axiosInstance.defaults.headers['Authorization'] =
+                //     'JWT ' + localStorage.getItem('access_token');
+                // history.push('/');
                 //console.log(res);
                 //console.log(res.data);
+            })
+            .catch((e) => {
+                console.log('로그인 오류');
             });
     };
 
@@ -119,6 +133,11 @@ export default function SignIn() {
                     >
                         Sign In
                     </Button>
+                    <FbLogin
+                        appId=''
+                        fields='name,email,picture'
+                        callback={responseFacebook}
+                    />
                     <Grid container>
                         <Grid item xs>
                             <Link href='#' variant='body2'>
